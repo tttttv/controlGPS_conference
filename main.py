@@ -42,5 +42,27 @@ def start(message):
     else:
         bot.reply_to(message, 'Если вы хотите получить ответ от техподдержки, напишите мне в личные сообщения.')
 
+# Message Forward Handler (User - Support)
+@bot.message_handler(func=lambda message: message.chat.type == 'private', content_types=['text', 'photo', 'document', 'video', 'voice'])
+def echo_all(message):
+    while True:
+        mysql.start_bot(message.chat.id)
+        user_id = message.chat.id
+        message = message
+
+        try:
+            ticket_status = mysql.user_tables(user_id)['open_ticket']
+            ticket_spam = mysql.user_tables(user_id)['open_ticket_spam']
+
+            if ticket_status == 0:
+                mysql.open_ticket(user_id)
+                bot.reply_to(message, 'Создан запрос в техподдержку, наш специалист ответит вам в ближайшее время!')
+                continue
+            else:
+                msg.fwd_handler(user_id, bot, message)
+                return
+        except:
+            bot.reply_to(message, 'Сообщение не доставлено')
+            
 print("Telegram Support Bot started...")
 bot.polling()
