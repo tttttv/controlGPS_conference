@@ -102,39 +102,6 @@ def fwd_handler(user_id, bot, message):
             ' {0}'.format(message.from_user.last_name) if message.from_user.last_name else '',
             from_user_id, message.text, username), parse_mode='HTML', disable_web_page_preview=True)
 
-    elif message.content_type == 'photo':
-        msg = bot.send_photo(config.support_chat, message.photo[-1].file_id,
-                             caption="[{0}{1}], tg:@{4} (#id{2})\n\n{3}".format(
-                                 message.from_user.first_name,
-                                 ' {0}'.format(message.from_user.last_name) if message.from_user.last_name else '',
-                                 message.from_user.id, msgCaption(message), message.from_user.username if message.from_user.username else 'no_tag'), parse_mode='Markdown')
-
-    elif message.content_type == 'document':
-        msg = bot.send_document(config.support_chat, message.document.file_id,
-                                caption="[{0}{1}], tg:@{4} (#id{2})\n\n{3}".format(
-                                    message.from_user.first_name,
-                                    ' {0}'.format(message.from_user.last_name) if message.from_user.last_name else '',
-                                    message.from_user.id, msgCaption(message), message.from_user.username if message.from_user.username else 'no_tag'), parse_mode='Markdown')
-    elif message.content_type == 'video':
-        msg = bot.send_video(config.support_chat, message.video.file_id,
-                             caption="[{0}{1}], tg:@{4} (#id{2})\n\n{3}".format(
-                                 message.from_user.first_name,
-                                 ' {0}'.format(message.from_user.last_name) if message.from_user.last_name else '',
-                                 message.from_user.id, msgCaption(message), message.from_user.username if message.from_user.username else 'no_tag'), parse_mode='Markdown')
-    elif message.content_type == 'voice':
-        msg = bot.send_voice(config.support_chat, message.voice.file_id,
-                             caption="[{0}{1}], tg:@{4} (#id{2})\n\n{3}".format(
-                                 message.from_user.first_name,
-                                 ' {0}'.format(message.from_user.last_name) if message.from_user.last_name else '',
-                                 message.from_user.id, msgCaption(message),
-                                 message.from_user.username if message.from_user.username else 'no_tag'),
-                             parse_mode='Markdown')
-    elif message.content_type == 'sticker':
-        msg = bot.send_sticker(user_id, message.sticker.file_id)
-
-    else:
-        bot.reply_to(message, '❌ That format is not supported and won\'t be forwarded.')
-
     channel_id = re.sub(r"-100(\S+)", r"\1", str(config.support_chat))
     message_id = msg.message_id
     message_link = f'https://t.me/c/{channel_id}/{message_id}'

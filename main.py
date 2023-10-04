@@ -36,7 +36,7 @@ def start(message):
                 from_user_id, message.text, username), parse_mode='HTML', disable_web_page_preview=True)
 
         bot.send_message(message.chat.id,
-                         config.text_messages['start'],
+                         'Текст [inline URL](http://www.example.com/)',
                          parse_mode='Markdown', disable_web_page_preview=True)
         mysql.start_bot(message.chat.id)
     else:
@@ -56,13 +56,12 @@ def echo_all(message):
 
             if ticket_status == 0:
                 mysql.open_ticket(user_id)
-                bot.reply_to(message, 'Создан запрос в техподдержку, наш специалист ответит вам в ближайшее время!')
                 continue
             else:
                 msg.fwd_handler(user_id, bot, message)
                 return
         except:
             bot.reply_to(message, 'Сообщение не доставлено')
-            
+
 print("Telegram Support Bot started...")
 bot.polling()
