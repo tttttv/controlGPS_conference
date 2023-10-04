@@ -26,4 +26,7 @@ def start(message):
                          parse_mode='Markdown', disable_web_page_preview=True)
         mysql.start_bot(message.chat.id)
     else:
-        bot.reply_to(message, 'Конференция!!!!!.')
+        bot.reply_to(message, 'Если вы хотите получить ответ от техподдержки, напишите мне в личные сообщения.')
+
+print("Telegram Support Bot started...")
+bot.polling()
