@@ -36,7 +36,7 @@ def start(message):
                 from_user_id, message.text, username), parse_mode='HTML', disable_web_page_preview=True)
 
         bot.send_message(message.chat.id,
-                         'Текст [inline URL](http://www.example.com/)',
+                         'Текст \n[inline URL](http://controlgps.org/)\n[inline URL](http://controlgps.org/franchise)',
                          parse_mode='Markdown', disable_web_page_preview=True)
         mysql.start_bot(message.chat.id)
     else:
